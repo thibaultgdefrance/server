@@ -13,6 +13,7 @@ namespace Server
         {
             _SocketClient = sock;
         }
+        
         public void TraitementClient()
         {
             Console.WriteLine("Thread client lancé");
@@ -31,14 +32,14 @@ namespace Server
             Message = Message.Substring(0,Recu);
             if (Recu>9)
             {
-                _pseudo = Message.Substring(0, 9);
+                _pseudo = Message.Substring(0, 15);
             }
             else
             {
                 _pseudo = Message.Substring(0, Recu);
             }
             Program prg = new Program();
-            prg.Broadcast(_pseudo + "identifié sur le reseau");
+            prg.Broadcast(_pseudo + " identifié sur le reseau");
             while (_SocketClient.Connected)
             {
                 try
@@ -50,7 +51,7 @@ namespace Server
                     {
                         Msg = System.Text.Encoding.UTF8.GetString(Octets);
                         Msg = Msg.Substring(0, Recu);
-                        prg.Broadcast(_pseudo + "a dit:" + Msg);
+                        prg.Broadcast(_pseudo + " a dit: " + Msg);
 
                     }
                     else
